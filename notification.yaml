@@ -12,7 +12,7 @@ command_line:
   - sensor:
       name: Event Log user
       command: "bash /config/www/log_to_json_user.sh 2>&1" # Capture script errors too
-      scan_interval: 5 # Run every 60 seconds
+      scan_interval: 5 # Run every 5 seconds
       value_template: "{{ value_json.last_update | default('Unknown') }}" # Use 'last_update' field or default to 'Unknown'
       json_attributes:
         - events # Store the events array as attributes
