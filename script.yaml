@@ -1,0 +1,34 @@
+alias: "Text: Log to Input and Notify"
+sequence:
+  - action: input_number.increment
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - input_number.notification_user_badge
+  - parallel:
+      - action: notify.mobile_app_user
+        data:
+          title: "{{title}}"
+          message: "{{message}}"
+          data:
+            image: "{{image}}"
+            push:
+              interruption-level: "{{level}}"
+              badge: "{{ states('input_number.notification_user_badge') | int }}"
+              sound:
+                name: "{{sound}}"
+                volume: "{{volume}}"
+            tag: "{{tag}}"
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: |
+            **(unread){{ title }}**
+            {{ message }} 
+            ![image]({{ image }})
+        target:
+          entity_id:
+            - input_text.event_input_for_user
+description: ""
+icon: mdi:card-text-outline
