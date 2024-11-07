@@ -20,15 +20,15 @@ actions:
 
 
 alias: "Notification: Remove \"unread\" from user"
-description: Adjust the notification to read
+description: Mark the notification as read
 triggers:
   - trigger: event
     event_type: ios.entered_background
     event_data:
-      sourceDeviceID: markiphonepro
+      sourceDeviceID: YourDeviceID
     context:
       user_id:
-        - 1fc2fb8dc43b4d1fb0739aa0b61851bc
+        - YourUserID
 conditions: []
 actions:
   - action: shell_command.refresh_event_log_user
