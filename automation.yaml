@@ -1,0 +1,36 @@
+alias: "Notification: Prepend Event to Log and Notify user"
+description: ""
+triggers:
+  - entity_id:
+      - input_text.event_input_for_user
+    trigger: state
+conditions:
+  - condition: template
+    value_template: "{{ states('input_text.event_input_for_user') | length > 0 }}"
+actions:
+  - data:
+      event_input: "{{ states('input_text.event_input_for_user') }}"
+    action: shell_command.prepend_event_log_user
+  - data:
+      value: ""
+    action: input_text.set_value
+    enabled: true
+    target:
+      entity_id: input_text.event_input_for_user
+
+
+alias: "Notification: Remove \"unread\" from user"
+description: Adjust the notification to read
+triggers:
+  - trigger: event
+    event_type: ios.entered_background
+    event_data:
+      sourceDeviceID: markiphonepro
+    context:
+      user_id:
+        - 1fc2fb8dc43b4d1fb0739aa0b61851bc
+conditions: []
+actions:
+  - action: shell_command.refresh_event_log_user
+    data: {}
+mode: single
