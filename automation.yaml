@@ -34,3 +34,23 @@ actions:
   - action: shell_command.refresh_event_log_user
     data: {}
 mode: single
+
+alias: "Notification: Reset Mark Badge"
+description: Badge number to "0"
+triggers:
+  - trigger: event
+    event_type: ios.entered_background
+    event_data:
+      sourceDeviceID: markiphonepro
+    context:
+      user_id:
+        - YourUserID
+conditions: []
+actions:
+  - action: input_number.set_value
+    metadata: {}
+    data:
+      value: 0
+    target:
+      entity_id: input_number.notification_user_badge
+mode: single
